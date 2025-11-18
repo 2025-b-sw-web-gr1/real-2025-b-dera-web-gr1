@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messenger</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            height: 100vh;
+        }
+
+        /* Sidebar - Lista de conversaciones */
+        .sidebar {
+            background: #fff;
+            border-right: 1px solid #e4e6eb;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e4e6eb;
+        }
+
+        .sidebar-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .sidebar-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: #0084ff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0073e6;
+        }
+
+        .btn-secondary {
+            background: #e4e6eb;
+            color: #050505;
+        }
+
+        .btn-secondary:hover {
+            background: #d8dadf;
+        }
+
+        .search-box {
+            padding: 8px 16px;
+            margin: 8px 16px;
+            background: #f0f2f5;
+            border-radius: 20px;
+            border: none;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .chat-item:hover {
+            background: #f2f2f2;
+        }
+
+        .chat-item.active {
+            background: #e7f3ff;
+        }
+
+        .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-right: 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .avatar.online::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 14px;
+            height: 14px;
+            background: #31a24c;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+
+        .chat-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .chat-name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 2px;
+            color: #050505;
+        }
+
+        .chat-message {
+            font-size: 13px;
+            color: #65676b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-message.unread {
+            color: #050505;
+            font-weight: 600;
+        }
+
+        .chat-time {
+            font-size: 12px;
+            color: #65676b;
+            white-space: nowrap;
+        }
+
+        .unread-badge {
+            width: 20px;
+            height: 20px;
+            background: #0084ff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        /* Chat Area */
+        .chat-area {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e4e6eb;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-btn {
+            display: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #f2f2f2;
+        }
+
+        .back-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #050505;
+        }
+
+        .chat-header .avatar {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+        }
+
+        .chat-header-info {
+            flex: 1;
+            margin-left: 12px;
+        }
+
+        .chat-header-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #050505;
+        }
+
+        .chat-header-status {
+            font-size: 12px;
+            color: #65676b;
+        }
+
+        .chat-header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: #f2f2f2;
+        }
+
+        .icon-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #0084ff;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .message {
+            display: flex;
+            gap: 8px;
+            max-width: 60%;
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message.received {
+            align-self: flex-start;
+        }
+
+        .message-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .message-bubble {
+            padding: 8px 12px;
+            border-radius: 18px;
+            font-size: 15px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .message.received .message-bubble {
+            background: #e4e6eb;
+            color: #050505;
+        }
+
+        .message.sent .message-bubble {
+            background: #0084ff;
+            color: white;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #65676b;
+            padding: 0 8px;
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 16px;
+            border-top: 1px solid #e4e6eb;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 20px;
+            border: none;
+            background: #f0f2f5;
+            font-size: 15px;
+            outline: none;
+            resize: none;
+            max-height: 100px;
+        }
+
+        .send-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #0084ff;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .send-btn:hover {
+            background: #0073e6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-area {
+                display: none;
+            }
+
+            .container.chat-open .sidebar {
+                display: none;
+            }
+
+            .container.chat-open .chat-area {
+                display: flex;
+            }
+
+            .sidebar {
+                border-right: none;
+            }
+
+            .message {
+                max-width: 80%;
+            }
+
+            .back-btn {
+                display: flex;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>Chats</h1>
+                <div class="sidebar-actions">
+                    <button class="btn btn-secondary">⚙️ Configuración</button>
+                    <button class="btn btn-primary">✏️ Nuevo</button>
+                </div>
+            </div>
+            
+            <input type="text" class="search-box" placeholder="Buscar en Messenger">
+            
+            <div class="chat-list">
+                <div class="chat-item active">
+                    <div class="avatar online">MG</div>
+                    <div class="chat-info">
+                        <div class="chat-name">María García</div>
+                        <div class="chat-message unread">¡Hola! ¿Cómo estás?</div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
+                        <div class="chat-time">2 min</div>
+                        <div class="unread-badge">3</div>
+                    </div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="avatar online">JR</div>
+                    <div class="chat-info">
+                        <div class="chat-name">Juan Rodríguez</div>
+                        <div class="chat-message">Nos vemos mañana 👋</div>
+                    </div>
+                    <div class="chat-time">15 min</div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="avatar">AL</div>
+                    <div class="chat-info">
+                        <div class="chat-name">Ana López</div>
+                        <div class="chat-message">Perfecto, gracias!</div>
+                    </div>
+                    <div class="chat-time">1 h</div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="avatar online">CM</div>
+                    <div class="chat-info">
+                        <div class="chat-name">Carlos Martínez</div>
+                        <div class="chat-message">👍</div>
+                    </div>
+                    <div class="chat-time">3 h</div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="avatar">LS</div>
+                    <div class="chat-info">
+                        <div class="chat-name">Laura Sánchez</div>
+                        <div class="chat-message">¿Tienes tiempo para hablar?</div>
+                    </div>
+                    <div class="chat-time">Ayer</div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="avatar online">PG</div>
+                    <div class="chat-info">
+                        <div class="chat-name">Pedro Gómez</div>
+                        <div class="chat-message">Claro, sin problema</div>
+                    </div>
+                    <div class="chat-time">Ayer</div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="avatar">SF</div>
+                    <div class="chat-info">
+                        <div class="chat-name">Sofía Fernández</div>
+                        <div class="chat-message">Muchas gracias por tu ayuda</div>
+                    </div>
+                    <div class="chat-time">Lun</div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="avatar online">DT</div>
+                    <div class="chat-info">
+                        <div class="chat-name">Diego Torres</div>
+                        <div class="chat-message">😂😂😂</div>
+                    </div>
+                    <div class="chat-time">Dom</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <button class="back-btn" id="backBtn" title="Volver">
+                    <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                </button>
+                <div class="avatar online">MG</div>
+                <div class="chat-header-info">
+                    <div class="chat-header-name">María García</div>
+                    <div class="chat-header-status">Activo ahora</div>
+                </div>
+                <div class="chat-header-actions">
+                    <button class="icon-btn" title="Llamada de voz">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </button>
+                    <button class="icon-btn" title="Videollamada">
+                        <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    </button>
+                    <button class="icon-btn" title="Información">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="messages" id="messagesContainer">
+                <!-- Los mensajes se cargarán dinámicamente -->
+            </div>
+
+            <div class="input-area">
+                <div class="input-actions">
+                    <button class="icon-btn" title="Adjuntar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0084ff"><circle cx="12" cy="12" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="18" cy="12" r="1.5"/></svg>
+                    </button>
+                    <button class="icon-btn" title="Imagen">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0084ff"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                    </button>
+                    <button class="icon-btn" title="Sticker">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0084ff"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM8.5 8c.83 0 1.5.67 1.5 1.5S9.33 11 8.5 11 7 10.33 7 9.5 7.67 8 8.5 8zM12 18c-2.28 0-4.22-1.66-5-4h10c-.78 2.34-2.72 4-5 4zm3.5-7c-.83 0-1.5-.67-1.5-1.5S14.67 8 15.5 8s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                    </button>
+                    <button class="icon-btn" title="GIF">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0084ff"><text x="2" y="18" font-size="14" font-weight="bold">GIF</text></svg>
+                    </button>
+                </div>
+                <input type="text" class="message-input" placeholder="Aa">
+                <button class="send-btn" title="Enviar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base de datos de conversaciones
+        const conversations = {
+            'María García': [
+                { type: 'received', avatar: 'MG', text: 'Hola! ¿Cómo has estado?', time: '10:30' },
+                { type: 'sent', text: '¡Hola María! Todo bien, gracias por preguntar', time: '10:31' },
+                { type: 'sent', text: '¿Y tú qué tal?', time: '10:31' },
+                { type: 'received', avatar: 'MG', text: 'Muy bien! Quería preguntarte sobre el proyecto', time: '10:32' },
+                { type: 'received', avatar: 'MG', text: '¿Tienes tiempo para una videollamada más tarde?', time: '10:32' },
+                { type: 'sent', text: 'Claro! ¿A qué hora te viene bien?', time: '10:33' },
+                { type: 'received', avatar: 'MG', text: '¿Qué tal a las 3 pm?', time: '10:34' },
+                { type: 'sent', text: 'Perfecto! Nos vemos entonces 😊', time: '10:35' },
+                { type: 'received', avatar: 'MG', text: '¡Hola! ¿Cómo estás?', time: 'Ahora' }
+            ],
+            'Juan Rodríguez': [
+                { type: 'sent', text: 'Hola Juan! ¿Vamos al gimnasio mañana?', time: '09:15' },
+                { type: 'received', avatar: 'JR', text: 'Claro! ¿A qué hora?', time: '09:20' },
+                { type: 'sent', text: 'A las 7 am?', time: '09:21' },
+                { type: 'received', avatar: 'JR', text: 'Perfecto, ahí nos vemos', time: '09:22' },
+                { type: 'received', avatar: 'JR', text: 'Nos vemos mañana 👋', time: '09:23' }
+            ],
+            'Ana López': [
+                { type: 'received', avatar: 'AL', text: 'Oye, ¿me puedes pasar los apuntes de la clase?', time: 'Ayer' },
+                { type: 'sent', text: 'Claro, te los mando por email', time: 'Ayer' },
+                { type: 'received', avatar: 'AL', text: 'Perfecto, gracias!', time: 'Ayer' },
+                { type: 'sent', text: 'De nada! 😊', time: 'Ayer' }
+            ],
+            'Carlos Martínez': [
+                { type: 'received', avatar: 'CM', text: '¿Viste el partido anoche?', time: '08:30' },
+                { type: 'sent', text: 'Sí! Estuvo increíble', time: '08:32' },
+                { type: 'received', avatar: 'CM', text: 'Ese gol en el último minuto 🔥', time: '08:33' },
+                { type: 'sent', text: 'No lo podía creer jaja', time: '08:34' },
+                { type: 'received', avatar: 'CM', text: '👍', time: '08:35' }
+            ],
+            'Laura Sánchez': [
+                { type: 'received', avatar: 'LS', text: 'Hola! ¿Tienes tiempo para hablar?', time: 'Ayer' },
+                { type: 'sent', text: 'Ahora estoy ocupado, ¿te parece más tarde?', time: 'Ayer' },
+                { type: 'received', avatar: 'LS', text: 'Ok, sin problema', time: 'Ayer' }
+            ],
+            'Pedro Gómez': [
+                { type: 'received', avatar: 'PG', text: '¿Me ayudas con el trabajo de matemáticas?', time: 'Ayer' },
+                { type: 'sent', text: 'Claro, sin problema', time: 'Ayer' },
+                { type: 'received', avatar: 'PG', text: 'Gracias! Te debo una', time: 'Ayer' },
+                { type: 'sent', text: 'Cuando quieras, nos vemos', time: 'Ayer' }
+            ],
+            'Sofía Fernández': [
+                { type: 'received', avatar: 'SF', text: 'Oye, ¿cómo te fue en el examen?', time: 'Lun' },
+                { type: 'sent', text: 'Bastante bien, creo que saqué buena nota', time: 'Lun' },
+                { type: 'received', avatar: 'SF', text: 'Qué bien! Yo también', time: 'Lun' },
+                { type: 'received', avatar: 'SF', text: 'Muchas gracias por tu ayuda', time: 'Lun' },
+                { type: 'sent', text: 'Para eso están los amigos! 😊', time: 'Lun' }
+            ],
+            'Diego Torres': [
+                { type: 'sent', text: 'Mira este meme 😂', time: 'Dom' },
+                { type: 'received', avatar: 'DT', text: 'JAJAJA no puede ser', time: 'Dom' },
+                { type: 'received', avatar: 'DT', text: '😂😂😂', time: 'Dom' },
+                { type: 'sent', text: 'Te lo dije jajaja', time: 'Dom' }
+            ]
+        };
+
+        // Funcionalidad básica para dispositivos móviles
+        const chatItems = document.querySelectorAll('.chat-item');
+        const container = document.querySelector('.container');
+        const backBtn = document.getElementById('backBtn');
+        const chatHeaderName = document.querySelector('.chat-header-name');
+        const chatHeaderStatus = document.querySelector('.chat-header-status');
+        const chatHeaderAvatar = document.querySelector('.chat-header .avatar');
+        const messagesContainer = document.getElementById('messagesContainer');
+
+        function loadMessages(name) {
+            const messages = conversations[name] || [];
+            messagesContainer.innerHTML = '';
+
+            messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${msg.type}`;
+
+                if (msg.type === 'received') {
+                    messageDiv.innerHTML = `
+                        <div class="message-avatar">${msg.avatar}</div>
+                        <div class="message-content">
+                            <div class="message-bubble">${msg.text}</div>
+                            <div class="message-time">${msg.time}</div>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.innerHTML = `
+                        <div class="message-content">
+                            <div class="message-bubble">${msg.text}</div>
+                            <div class="message-time">${msg.time}</div>
+                        </div>
+                    `;
+                }
+
+                messagesContainer.appendChild(messageDiv);
+            });
+
+            // Scroll al final
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Cargar conversación inicial (María García)
+        loadMessages('María García');
+
+        chatItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remover clase active de todos
+                chatItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                // Obtener información del chat
+                const name = item.querySelector('.chat-name').textContent;
+                const avatar = item.querySelector('.avatar').textContent;
+                const isOnline = item.querySelector('.avatar').classList.contains('online');
+
+                // Actualizar header del chat
+                chatHeaderName.textContent = name;
+                chatHeaderStatus.textContent = isOnline ? 'Activo ahora' : 'Desconectado';
+                chatHeaderAvatar.textContent = avatar;
+                
+                if (isOnline) {
+                    chatHeaderAvatar.classList.add('online');
+                } else {
+                    chatHeaderAvatar.classList.remove('online');
+                }
+
+                // Cargar mensajes de esta conversación
+                loadMessages(name);
+
+                // En móvil, mostrar el chat
+                if (window.innerWidth <= 768) {
+                    container.classList.add('chat-open');
+                }
+            });
+        });
+
+        // Botón de volver
+        backBtn.addEventListener('click', () => {
+            container.classList.remove('chat-open');
+        });
+
+        // Funcionalidad del input
+        const messageInput = document.querySelector('.message-input');
+        const sendBtn = document.querySelector('.send-btn');
+
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        sendBtn.addEventListener('click', sendMessage);
+
+        function sendMessage() {
+            const text = messageInput.value.trim();
+            if (text) {
+                console.log('Enviando mensaje:', text);
+                messageInput.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

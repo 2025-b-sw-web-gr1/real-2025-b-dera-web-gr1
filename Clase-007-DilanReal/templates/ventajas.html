@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+
+{% block title %}¿Por qué usar Jinja2? - Ventajas y Comparación{% endblock %}
+
+{% block content %}
+<section class="ventajas-hero">
+    <div class="container">
+        <h1>🚀 ¿Por qué elegí Jinja2?</h1>
+        <p class="subtitle">Descubre las ventajas de este poderoso motor de plantillas</p>
+        <div class="hero-image-container">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop" 
+                 alt="Código de programación" 
+                 class="hero-image"
+                 loading="lazy">
+        </div>
+    </div>
+</section>
+
+<section class="ventajas-principales">
+    <div class="container">
+        <h2>Ventajas Principales de Jinja2</h2>
+        <div class="ventajas-grid">
+            {# BUCLE para mostrar ventajas con índice #}
+            {% for ventaja in ventajas %}
+            <div class="ventaja-card">
+                <div class="ventaja-numero">{{ loop.index }}</div>
+                <h3>{{ ventaja.titulo }}</h3>
+                <p>{{ ventaja.descripcion }}</p>
+                <div class="ejemplo-code">
+                    <strong>Ejemplo:</strong>
+                    <code>{{ ventaja.ejemplo }}</code>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="caracteristicas-demo">
+    <div class="container">
+        <h2>Características Demostradas en este Sitio</h2>
+        <div class="demo-grid">
+            <div class="demo-item">
+                <h3>1. Herencia de Plantillas</h3>
+                <p>Todas las páginas extienden <code>base.html</code> usando <code>{% raw %}{% extends "base.html" %}{% endraw %}</code></p>
+                <div class="code-example">
+                    <pre>{% raw %}{% extends "base.html" %}
+{% block content %}
+  <!-- Contenido específico -->
+{% endblock %}{% endraw %}</pre>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>2. Macros Reutilizables</h3>
+                <p>Creamos una macro <code>render_product_card()</code> para mostrar tarjetas de productos</p>
+                <div class="code-example">
+                    <pre>{% raw %}{% macro render_product_card(producto) %}
+  <div class="product-card">
+    <h3>{{ producto.nombre }}</h3>
+    <!-- más HTML -->
+  </div>
+{% endmacro %}{% endraw %}</pre>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>3. Filtros Potentes</h3>
+                <p>Usamos filtros como <code>upper</code>, <code>truncate</code>, <code>format</code>, <code>sum</code>, etc.</p>
+                <div class="code-example">
+                    <pre>{% raw %}{{ "jinja2" | upper }}
+{{ producto.descripcion | truncate(80) }}
+{{ productos | map(attribute='stock') | sum }}{% endraw %}</pre>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>4. Expresiones Python</h3>
+                <p>Realizamos cálculos directamente en las plantillas</p>
+                <div class="code-example">
+                    <pre>{% raw %}Precio con IVA: ${{ "%.2f" | format(producto.precio * 1.21) }}
+Total productos: {{ productos | length }}{% endraw %}</pre>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>5. Condicionales Avanzados</h3>
+                <p>Lógica condicional clara y legible</p>
+                <div class="code-example">
+                    <pre>{% raw %}{% if producto.stock > 20 %}
+  Stock alto
+{% elif producto.stock > 10 %}
+  Stock limitado
+{% else %}
+  Últimas unidades
+{% endif %}{% endraw %}</pre>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <h3>6. Variables de Loop</h3>
+                <p>Acceso a información del bucle como <code>loop.index</code>, <code>loop.last</code></p>
+                <div class="code-example">
+                    <pre>{% raw %}{% for item in items %}
+  {{ loop.index }}. {{ item.nombre }}
+  {% if not loop.last %}, {% endif %}
+{% endfor %}{% endraw %}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="comparacion">
+    <div class="container">
+        <h2>Comparación con Otros Motores de Renderizado</h2>
+        
+        <div class="comparison-grid">
+            {# BUCLE sobre diccionario de comparación #}
+            {% for motor, datos in comparacion.items() %}
+            <div class="comparison-card">
+                <h3>{{ motor }}</h3>
+                
+                <div class="pros">
+                    <h4>✅ Ventajas</h4>
+                    <ul>
+                        {% for pro in datos.pros %}
+                        <li>{{ pro }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="contras">
+                    <h4>❌ Desventajas vs Jinja2</h4>
+                    <ul>
+                        {% for contra in datos.contras %}
+                        <li>{{ contra }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+            
+            <div class="comparison-card jinja2-card">
+                <h3>Jinja2 ⭐</h3>
+                
+                <div class="pros">
+                    <h4>✅ Ventajas</h4>
+                    <ul>
+                        <li>Sintaxis Pythónica y clara</li>
+                        <li>Herencia de plantillas robusta</li>
+                        <li>Más de 50 filtros integrados</li>
+                        <li>Macros para reutilización</li>
+                        <li>Auto-escapado de seguridad</li>
+                        <li>Expresiones Python completas</li>
+                        <li>Excelente documentación</li>
+                    </ul>
+                </div>
+                
+                <div class="contras">
+                    <h4>⚠️ Consideraciones</h4>
+                    <ul>
+                        <li>Específico para Python</li>
+                        <li>Puede ser tentador poner mucha lógica en plantillas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tabla-comparativa">
+    <div class="container">
+        <h2>Tabla Comparativa Detallada</h2>
+        <div class="table-responsive">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Jinja2</th>
+                        <th>EJS</th>
+                        <th>Handlebars</th>
+                        <th>Pug</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Herencia de Plantillas</td>
+                        <td class="check">✅ Nativa</td>
+                        <td class="cross">❌ No nativa</td>
+                        <td class="partial">⚠️ Con helpers</td>
+                        <td class="check">✅ Sí</td>
+                    </tr>
+                    <tr>
+                        <td>Filtros Integrados</td>
+                        <td class="check">✅ 50+</td>
+                        <td class="cross">❌ Pocos</td>
+                        <td class="partial">⚠️ ~20</td>
+                        <td class="partial">⚠️ Limitados</td>
+                    </tr>
+                    <tr>
+                        <td>Macros/Componentes</td>
+                        <td class="check">✅ Macros</td>
+                        <td class="partial">⚠️ Includes</td>
+                        <td class="check">✅ Partials</td>
+                        <td class="check">✅ Mixins</td>
+                    </tr>
+                    <tr>
+                        <td>Auto-escapado XSS</td>
+                        <td class="check">✅ Por defecto</td>
+                        <td class="partial">⚠️ Manual</td>
+                        <td class="check">✅ Sí</td>
+                        <td class="check">✅ Sí</td>
+                    </tr>
+                    <tr>
+                        <td>Sintaxis</td>
+                        <td class="check">✅ Clara (HTML)</td>
+                        <td class="check">✅ HTML estándar</td>
+                        <td class="check">✅ HTML estándar</td>
+                        <td class="partial">⚠️ Indentación</td>
+                    </tr>
+                    <tr>
+                        <td>Curva de Aprendizaje</td>
+                        <td class="check">✅ Fácil</td>
+                        <td class="check">✅ Fácil</td>
+                        <td class="check">✅ Fácil</td>
+                        <td class="cross">❌ Media-Alta</td>
+                    </tr>
+                    <tr>
+                        <td>Expresiones Completas</td>
+                        <td class="check">✅ Python</td>
+                        <td class="check">✅ JavaScript</td>
+                        <td class="cross">❌ Limitado</td>
+                        <td class="check">✅ JavaScript</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="conclusion">
+    <div class="container">
+        <div class="conclusion-box">
+            <h2>💡 Conclusión</h2>
+            <p><strong>Elegí Jinja2 porque:</strong></p>
+            <ul class="conclusion-list">
+                <li>✅ Sintaxis clara y similar a Python, fácil de aprender</li>
+                <li>✅ Sistema robusto de herencia de plantillas que reduce duplicación de código</li>
+                <li>✅ Gran cantidad de filtros integrados para manipular datos sin lógica adicional</li>
+                <li>✅ Macros para crear componentes reutilizables</li>
+                <li>✅ Seguridad integrada con auto-escapado contra XSS</li>
+                <li>✅ Permite expresiones Python completas en las plantillas</li>
+                <li>✅ Excelente documentación y gran comunidad</li>
+                <li>✅ Perfecta integración con Flask (framework Python)</li>
+            </ul>
+            
+            <p class="conclusion-final">
+                Para un proyecto en Python/Flask, Jinja2 es la elección natural por su potencia,
+                flexibilidad y facilidad de uso. Su sintaxis Pythónica hace que sea intuitivo
+                para desarrolladores Python, mientras que sus características avanzadas como
+                herencia de plantillas y filtros lo hacen superior a alternativas más simples.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-final">
+    <div class="container">
+        <h2>¿Listo para explorar los productos?</h2>
+        <div class="cta-buttons">
+            <a href="{{ url_for('index') }}" class="btn-primary">Ver Destacados</a>
+            <a href="{{ url_for('todos_productos') }}" class="btn-secondary">Catálogo Completo</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

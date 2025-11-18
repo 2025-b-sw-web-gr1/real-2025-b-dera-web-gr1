@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# CARACTERÍSTICA JINJA2 #1: Blocks para herencia de plantillas #}
+    <title>{% block title %}AirPods Cases Shop{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🎧 AirPods Cases</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('todos_productos') }}">Productos</a></li>
+                <li><a href="{{ url_for('ventajas') }}">¿Por qué Jinja2?</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    {# CARACTERÍSTICA JINJA2 #2: Block de contenido que será sobrescrito #}
+    <main class="main-content">
+        {% block content %}
+        {# Contenido por defecto si no se sobrescribe #}
+        <div class="container">
+            <h1>Contenido por defecto</h1>
+        </div>
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sobre Nosotros</h3>
+                    <p>Las mejores fundas para proteger tus AirPods con estilo.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>Email: info@airpodscases.com</p>
+                    <p>Tel: +1 234 567 890</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Tecnología</h3>
+                    {# CARACTERÍSTICA JINJA2 #3: Uso de filtros para formatear texto #}
+                    <p>Powered by <strong>{{ "jinja2" | upper }}</strong></p>
+                    <p>{{ "Motor de plantillas de Python" | title }}</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                {# CARACTERÍSTICA JINJA2 #4: Expresiones Python en plantillas #}
+                <p>&copy; {{ 2024 }} AirPods Cases Shop. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    {# CARACTERÍSTICA JINJA2 #5: Block opcional para scripts adicionales #}
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

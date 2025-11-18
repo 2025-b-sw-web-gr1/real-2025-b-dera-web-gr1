@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}{{ producto.nombre }} - Detalle del Producto{% endblock %}
+
+{% block content %}
+<section class="product-detail">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{{ url_for('index') }}">Inicio</a> / 
+            <a href="{{ url_for('todos_productos') }}">Productos</a> / 
+            <span>{{ producto.nombre }}</span>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-image">
+                <img src="{{ producto.imagen }}" 
+                     alt="{{ producto.nombre }}"
+                     loading="lazy">
+                {% if producto.destacado %}
+                <div class="badge-featured">⭐ Producto Destacado</div>
+                {% endif %}
+            </div>
+
+            <div class="detail-info">
+                <h1>{{ producto.nombre }}</h1>
+                
+                <div class="price-display">
+                    <div class="price-main">
+                        <span class="currency">$</span>
+                        <span class="amount">{{ producto.precio }}</span>
+                    </div>
+                    <div class="price-tax">
+                        IVA incluido: ${{ "%.2f" | format(producto.precio * 1.21) }}
+                    </div>
+                </div>
+
+                <div class="description-full">
+                    <h3>Descripción</h3>
+                    <p>{{ producto.descripcion }}</p>
+                </div>
+
+                <div class="colors-section">
+                    <h3>Colores Disponibles ({{ producto.colores | length }})</h3>
+                    <div class="colors-list">
+                        {% for color in producto.colores %}
+                        <div class="color-option">
+                            <span class="color-circle" style="background-color: {{ color | lower }}"></span>
+                            <span class="color-name">{{ color }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="stock-section">
+                    <h3>Disponibilidad</h3>
+                    {% if producto.stock > 20 %}
+                        <p class="stock-status disponible">
+                            ✓ En stock ({{ producto.stock }} unidades disponibles)
+                        </p>
+                    {% elif producto.stock > 10 %}
+                        <p class="stock-status limitado">
+                            ⚠ Stock limitado ({{ producto.stock }} unidades)
+                        </p>
+                    {% elif producto.stock > 0 %}
+                        <p class="stock-status bajo">
+                            ⚡ ¡Últimas {{ producto.stock }} unidades!
+                        </p>
+                    {% else %}
+                        <p class="stock-status agotado">
+                            ✗ Agotado temporalmente
+                        </p>
+                    {% endif %}
+                </div>
+
+                <div class="actions">
+                    <button class="btn-add-cart">Agregar al Carrito</button>
+                    <button class="btn-buy-now">Comprar Ahora</button>
+                </div>
+
+                <div class="product-specs">
+                    <h3>Especificaciones</h3>
+                    <ul>
+                        <li><strong>ID del Producto:</strong> {{ producto.id }}</li>
+                        <li><strong>Precio base:</strong> ${{ producto.precio }}</li>
+                        <li><strong>Opciones de color:</strong> {{ producto.colores | join(', ') }}</li>
+                        <li><strong>Estado:</strong> {{ 'Destacado' if producto.destacado else 'Regular' }}</li>
+                        <li><strong>Stock actual:</strong> {{ producto.stock }} unidades</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-section">
+            <h2>Te puede interesar</h2>
+            <p>Explora más productos en nuestro <a href="{{ url_for('todos_productos') }}">catálogo completo</a></p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Simulación de agregar al carrito
+    document.querySelector('.btn-add-cart')?.addEventListener('click', () => {
+        alert('Producto "{{ producto.nombre }}" agregado al carrito!');
+    });
+    
+    document.querySelector('.btn-buy-now')?.addEventListener('click', () => {
+        alert('Procesando compra de "{{ producto.nombre }}" - ${{ producto.precio }}');
+    });
+</script>
+{% endblock %}
