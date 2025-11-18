@@ -1,0 +1,505 @@
+/* ===============================
+   VARIABLES Y RESET
+   =============================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ===============================
+   HEADER
+   =============================== */
+header {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* ===============================
+   MAIN CONTAINER
+   =============================== */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* ===============================
+   SECTIONS
+   =============================== */
+.section {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.section h2 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.section > p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+/* ===============================
+   ÍCONOS GRID
+   =============================== */
+.icons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.icon-container {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.icon-container:hover {
+    transform: translateY(-10px);
+}
+
+.icon-container p {
+    margin-top: 0.5rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Estilos de íconos SVG */
+.icon {
+    width: 80px;
+    height: 80px;
+    color: #667eea;
+    transition: all 0.3s ease;
+}
+
+.icon-heart:hover {
+    color: #e74c3c;
+    animation: heartbeat 0.8s ease infinite;
+}
+
+.icon-star:hover {
+    color: #f39c12;
+    animation: rotate 2s linear infinite;
+}
+
+.icon-bell:hover {
+    color: #3498db;
+    animation: ring 0.5s ease-in-out infinite;
+}
+
+.icon-settings:hover {
+    color: #95a5a6;
+}
+
+.icon-settings:hover .gear {
+    animation: spin 2s linear infinite;
+}
+
+/* Animaciones SVG */
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes ring {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-15deg); }
+    75% { transform: rotate(15deg); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ===============================
+   LOGO SHOWCASE
+   =============================== */
+.logo-showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 1rem;
+}
+
+.logo-svg {
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+.logo-svg:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.logo-circle {
+    stroke-dasharray: 565;
+    stroke-dashoffset: 565;
+    animation: drawCircle 3s ease forwards, rotate 20s linear infinite;
+}
+
+.logo-text {
+    opacity: 0;
+    animation: fadeIn 2s ease 1s forwards;
+}
+
+@keyframes drawCircle {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===============================
+   CHART CONTAINER
+   =============================== */
+.chart-container {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    border-radius: 1rem;
+    padding: 2rem;
+    overflow-x: auto;
+}
+
+.bar-chart-svg {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.bar {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.bar:hover {
+    opacity: 0.7;
+}
+
+/* ===============================
+   ILLUSTRATION CONTAINER
+   =============================== */
+.illustration-container {
+    background: #1a1a2e;
+    border-radius: 1rem;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.landscape-svg {
+    width: 100%;
+    height: auto;
+    max-width: 800px;
+    margin: 0 auto;
+    display: block;
+}
+
+.house {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.house:hover {
+    transform: scale(1.05);
+}
+
+.tree {
+    cursor: pointer;
+    transition: transform 0.5s ease;
+    transform-origin: center bottom;
+}
+
+.tree:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+.moon {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.moon:hover {
+    fill: #FFD700;
+    transform: scale(1.2);
+}
+
+/* ===============================
+   BUTTONS GRID
+   =============================== */
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.svg-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.svg-button svg {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.svg-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.svg-button:hover svg {
+    transform: scale(1.2);
+}
+
+.svg-button:active {
+    transform: translateY(-1px);
+}
+
+/* Colores específicos de botones */
+.download-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.download-btn:hover svg {
+    animation: bounce 0.5s ease infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.share-btn {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.share-btn:hover svg circle {
+    animation: pulse 0.5s ease infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.play-btn {
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+}
+
+.play-btn:hover svg polygon {
+    animation: playPulse 0.8s ease infinite;
+}
+
+@keyframes playPulse {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(2px); }
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #fa709a, #fee140);
+}
+
+.delete-btn:hover {
+    background: linear-gradient(135deg, #f44336, #e91e63);
+}
+
+.delete-btn:hover svg {
+    animation: shake 0.5s ease infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* ===============================
+   FOOTER
+   =============================== */
+footer {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem;
+    text-align: center;
+    margin-top: 2rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .section {
+        padding: 1.5rem;
+    }
+
+    .icons-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .logo-svg {
+        width: 200px;
+        height: 200px;
+    }
+
+    .buttons-grid {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icons-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ===============================
+   PREFERENCIAS DE USUARIO
+   =============================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===============================
+   EFECTOS ADICIONALES
+   =============================== */
+
+/* Tooltip para SVG */
+.icon-container:hover::after {
+    content: "Click para interactuar";
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    animation: tooltipFade 0.3s ease forwards;
+}
+
+@keyframes tooltipFade {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Efectos de brillo en hover */
+.section:hover {
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Gradiente animado en background */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
+}

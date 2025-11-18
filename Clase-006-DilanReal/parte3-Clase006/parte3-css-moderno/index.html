@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Moderno - CSS Grid & Flexbox</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header con Flexbox -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>📊 Dashboard Pro</h1>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-link active">Inicio</a>
+                <a href="#" class="nav-link">Estadísticas</a>
+                <a href="#" class="nav-link">Reportes</a>
+                <a href="#" class="nav-link">Configuración</a>
+            </nav>
+            <div class="user-menu">
+                <button class="notification-btn">🔔 <span class="badge">3</span></button>
+                <div class="user-avatar">DR</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar con Flexbox -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3>Menú Principal</h3>
+            <ul class="sidebar-menu">
+                <li class="menu-item active">
+                    <span class="icon">📈</span>
+                    <span>Dashboard</span>
+                </li>
+                <li class="menu-item">
+                    <span class="icon">👥</span>
+                    <span>Usuarios</span>
+                </li>
+                <li class="menu-item">
+                    <span class="icon">📦</span>
+                    <span>Productos</span>
+                </li>
+                <li class="menu-item">
+                    <span class="icon">💰</span>
+                    <span>Ventas</span>
+                </li>
+                <li class="menu-item">
+                    <span class="icon">📊</span>
+                    <span>Analíticas</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3>Configuración</h3>
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <span class="icon">⚙️</span>
+                    <span>Ajustes</span>
+                </li>
+                <li class="menu-item">
+                    <span class="icon">🔒</span>
+                    <span>Seguridad</span>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Content con CSS Grid -->
+    <main class="main-content">
+        <!-- Grid de métricas usando CSS Grid -->
+        <section class="metrics-grid">
+            <div class="metric-card card-primary">
+                <div class="metric-icon">👤</div>
+                <div class="metric-info">
+                    <h3>Total Usuarios</h3>
+                    <p class="metric-value">12,458</p>
+                    <span class="metric-change positive">+12% vs mes anterior</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-success">
+                <div class="metric-icon">💵</div>
+                <div class="metric-info">
+                    <h3>Ingresos</h3>
+                    <p class="metric-value">$89,340</p>
+                    <span class="metric-change positive">+23% vs mes anterior</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-warning">
+                <div class="metric-icon">📦</div>
+                <div class="metric-info">
+                    <h3>Pedidos</h3>
+                    <p class="metric-value">1,247</p>
+                    <span class="metric-change negative">-5% vs mes anterior</span>
+                </div>
+            </div>
+
+            <div class="metric-card card-info">
+                <div class="metric-icon">⭐</div>
+                <div class="metric-info">
+                    <h3>Satisfacción</h3>
+                    <p class="metric-value">4.8/5</p>
+                    <span class="metric-change positive">+0.3 vs mes anterior</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid de 2 columnas para gráficos -->
+        <section class="charts-grid">
+            <div class="chart-card">
+                <h3>Ventas Mensuales</h3>
+                <div class="chart-placeholder">
+                    <div class="bar-chart">
+                        <div class="bar" style="height: 60%;" data-value="60%"></div>
+                        <div class="bar" style="height: 75%;" data-value="75%"></div>
+                        <div class="bar" style="height: 45%;" data-value="45%"></div>
+                        <div class="bar" style="height: 90%;" data-value="90%"></div>
+                        <div class="bar" style="height: 85%;" data-value="85%"></div>
+                        <div class="bar" style="height: 70%;" data-value="70%"></div>
+                    </div>
+                    <div class="chart-labels">
+                        <span>Ene</span>
+                        <span>Feb</span>
+                        <span>Mar</span>
+                        <span>Abr</span>
+                        <span>May</span>
+                        <span>Jun</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>Distribución por Categoría</h3>
+                <div class="chart-placeholder">
+                    <div class="pie-chart">
+                        <div class="pie-segment segment-1"></div>
+                        <div class="pie-segment segment-2"></div>
+                        <div class="pie-segment segment-3"></div>
+                        <div class="pie-segment segment-4"></div>
+                    </div>
+                    <div class="pie-legend">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #4CAF50;"></span>
+                            <span>Electrónica (40%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #2196F3;"></span>
+                            <span>Ropa (30%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #FF9800;"></span>
+                            <span>Hogar (20%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #F44336;"></span>
+                            <span>Otros (10%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid de tabla responsiva -->
+        <section class="table-section">
+            <div class="table-header">
+                <h3>Últimas Transacciones</h3>
+                <button class="btn-primary">Ver Todas</button>
+            </div>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Producto</th>
+                            <th>Fecha</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#10234</td>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="avatar-small">JD</div>
+                                    <span>Juan Díaz</span>
+                                </div>
+                            </td>
+                            <td>Laptop Dell XPS 15</td>
+                            <td>2025-11-16</td>
+                            <td class="amount">$1,299.99</td>
+                            <td><span class="status status-completed">Completado</span></td>
+                        </tr>
+                        <tr>
+                            <td>#10233</td>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="avatar-small">MR</div>
+                                    <span>María Rodríguez</span>
+                                </div>
+                            </td>
+                            <td>iPhone 15 Pro</td>
+                            <td>2025-11-16</td>
+                            <td class="amount">$999.00</td>
+                            <td><span class="status status-pending">Pendiente</span></td>
+                        </tr>
+                        <tr>
+                            <td>#10232</td>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="avatar-small">CL</div>
+                                    <span>Carlos López</span>
+                                </div>
+                            </td>
+                            <td>Monitor Samsung 27"</td>
+                            <td>2025-11-15</td>
+                            <td class="amount">$349.99</td>
+                            <td><span class="status status-completed">Completado</span></td>
+                        </tr>
+                        <tr>
+                            <td>#10231</td>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="avatar-small">AG</div>
+                                    <span>Ana García</span>
+                                </div>
+                            </td>
+                            <td>Teclado Mecánico</td>
+                            <td>2025-11-15</td>
+                            <td class="amount">$129.99</td>
+                            <td><span class="status status-cancelled">Cancelado</span></td>
+                        </tr>
+                        <tr>
+                            <td>#10230</td>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="avatar-small">PM</div>
+                                    <span>Pedro Martínez</span>
+                                </div>
+                            </td>
+                            <td>Auriculares Sony WH-1000XM5</td>
+                            <td>2025-11-14</td>
+                            <td class="amount">$399.99</td>
+                            <td><span class="status status-completed">Completado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Grid de productos con auto-fit -->
+        <section class="products-section">
+            <h3>Productos Destacados</h3>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <span class="product-badge">Nuevo</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>MacBook Pro M3</h4>
+                        <p class="product-price">$2,499.00</p>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (128)</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <span class="product-badge sale">-20%</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>AirPods Pro</h4>
+                        <p class="product-price">$199.00 <s>$249.00</s></p>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (256)</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <span class="product-badge">Popular</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>iPad Air</h4>
+                        <p class="product-price">$599.00</p>
+                        <div class="product-rating">⭐⭐⭐⭐☆ (89)</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    </div>
+                    <div class="product-info">
+                        <h4>Apple Watch Series 9</h4>
+                        <p class="product-price">$429.00</p>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (342)</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <span class="product-badge">Agotándose</span>
+                    </div>
+                    <div class="product-info">
+                        <h4>Magic Keyboard</h4>
+                        <p class="product-price">$149.00</p>
+                        <div class="product-rating">⭐⭐⭐⭐☆ (67)</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                    </div>
+                    <div class="product-info">
+                        <h4>HomePod Mini</h4>
+                        <p class="product-price">$99.00</p>
+                        <div class="product-rating">⭐⭐⭐⭐☆ (145)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer con Flexbox -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Dashboard Pro - Implementación CSS Grid & Flexbox</p>
+            <div class="footer-links">
+                <a href="#">Términos</a>
+                <a href="#">Privacidad</a>
+                <a href="#">Contacto</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

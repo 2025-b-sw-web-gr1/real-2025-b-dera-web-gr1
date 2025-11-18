@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Noticias Accesible - Implementación WCAG 2.2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip to main content link para navegación rápida -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Header con navegación accesible -->
+    <header role="banner">
+        <div class="container">
+            <h1>Portal de Noticias Accesible</h1>
+            <p class="tagline">Información para todos, sin barreras</p>
+        </div>
+    </header>
+
+    <!-- Navegación principal con ARIA -->
+    <nav role="navigation" aria-label="Navegación principal">
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#" aria-current="page">Inicio</a></li>
+                <li><a href="#tecnologia">Tecnología</a></li>
+                <li><a href="#ciencia">Ciencia</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main id="main-content" role="main">
+        <div class="container">
+            <!-- Sección de búsqueda con labels accesibles -->
+            <section aria-label="Búsqueda de noticias">
+                <form class="search-form" role="search">
+                    <label for="search-input">Buscar noticias:</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        name="search"
+                        placeholder="Escribe tu búsqueda..."
+                        aria-describedby="search-help"
+                    >
+                    <span id="search-help" class="visually-hidden">
+                        Ingresa palabras clave para buscar noticias
+                    </span>
+                    <button type="submit" aria-label="Buscar">
+                        <span aria-hidden="true">🔍</span>
+                        Buscar
+                    </button>
+                </form>
+            </section>
+
+            <!-- Artículos de noticias -->
+            <section aria-labelledby="latest-news">
+                <h2 id="latest-news">Últimas Noticias</h2>
+                
+                <article class="news-card">
+                    <img 
+                        src="https://via.placeholder.com/400x250/4CAF50/ffffff?text=WebAssembly" 
+                        alt="Logotipo de WebAssembly sobre fondo verde"
+                    >
+                    <div class="news-content">
+                        <h3>WebAssembly revoluciona las aplicaciones web</h3>
+                        <p class="news-meta">
+                            <time datetime="2025-11-15">15 de noviembre, 2025</time>
+                            <span aria-hidden="true">•</span>
+                            <span>Por María García</span>
+                        </p>
+                        <p>
+                            Descubre cómo WebAssembly está permitiendo ejecutar aplicaciones 
+                            de alto rendimiento directamente en el navegador, transformando 
+                            industrias desde el diseño hasta los videojuegos.
+                        </p>
+                        <a href="#" class="read-more" aria-label="Leer más sobre WebAssembly">
+                            Leer más
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <img 
+                        src="https://via.placeholder.com/400x250/2196F3/ffffff?text=PWA" 
+                        alt="Ícono de Progressive Web App en smartphone"
+                    >
+                    <div class="news-content">
+                        <h3>PWAs: El futuro de las aplicaciones móviles</h3>
+                        <p class="news-meta">
+                            <time datetime="2025-11-14">14 de noviembre, 2025</time>
+                            <span aria-hidden="true">•</span>
+                            <span>Por Carlos Rodríguez</span>
+                        </p>
+                        <p>
+                            Las Progressive Web Apps combinan lo mejor de la web y las apps nativas.
+                            Empresas como Twitter y Starbucks han visto mejoras increíbles en engagement.
+                        </p>
+                        <a href="#" class="read-more" aria-label="Leer más sobre Progressive Web Apps">
+                            Leer más
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Modal accesible con WAI-ARIA -->
+            <section class="modal-demo">
+                <h2>Ejemplo de Modal Accesible</h2>
+                <button 
+                    id="open-modal" 
+                    class="btn-primary"
+                    aria-haspopup="dialog"
+                >
+                    Abrir Notificación
+                </button>
+            </section>
+
+            <!-- Formulario de contacto accesible -->
+            <section id="contacto" aria-labelledby="contact-heading">
+                <h2 id="contact-heading">Formulario de Contacto</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">
+                            Nombre completo 
+                            <abbr title="requerido" aria-label="requerido">*</abbr>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name"
+                            required
+                            aria-required="true"
+                            aria-describedby="name-help"
+                        >
+                        <span id="name-help" class="help-text">
+                            Ingresa tu nombre y apellido
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">
+                            Correo electrónico 
+                            <abbr title="requerido" aria-label="requerido">*</abbr>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email"
+                            required
+                            aria-required="true"
+                            aria-describedby="email-help"
+                        >
+                        <span id="email-help" class="help-text">
+                            Ejemplo: usuario@ejemplo.com
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">
+                            Mensaje 
+                            <abbr title="requerido" aria-label="requerido">*</abbr>
+                        </label>
+                        <textarea 
+                            id="message" 
+                            name="message"
+                            rows="5"
+                            required
+                            aria-required="true"
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Enviar mensaje</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal (inicialmente oculto) -->
+    <div 
+        id="notification-modal" 
+        class="modal" 
+        role="dialog" 
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        hidden
+    >
+        <div class="modal-content">
+            <h2 id="modal-title">¡Suscripción Exitosa!</h2>
+            <p id="modal-description">
+                Gracias por suscribirte a nuestras notificaciones. 
+                Recibirás las últimas noticias directamente.
+            </p>
+            <button id="close-modal" class="btn-primary">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="container">
+            <p>&copy; 2025 Portal de Noticias Accesible. Implementación WCAG 2.2</p>
+            <p>
+                <a href="#" class="footer-link">Política de Privacidad</a> | 
+                <a href="#" class="footer-link">Términos de Uso</a> | 
+                <a href="#" class="footer-link">Accesibilidad</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

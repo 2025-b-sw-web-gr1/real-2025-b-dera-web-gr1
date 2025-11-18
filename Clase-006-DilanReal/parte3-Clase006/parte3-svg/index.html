@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería SVG Interactiva - Estándar W3C</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>🎨 Galería SVG Interactiva</h1>
+        <p>Gráficos vectoriales escalables según el estándar W3C</p>
+    </header>
+
+    <main>
+        <!-- Sección 1: Íconos Animados -->
+        <section class="section">
+            <h2>1. Íconos SVG Animados</h2>
+            <p>Íconos escalables que se pueden animar con CSS y JavaScript</p>
+            
+            <div class="icons-grid">
+                <!-- Ícono de corazón animado -->
+                <div class="icon-container">
+                    <svg class="icon icon-heart" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <title>Corazón</title>
+                        <desc>Ícono de corazón que late al hacer hover</desc>
+                        <path d="M50,90 C50,90 10,60 10,35 C10,20 20,10 32,10 C40,10 47,15 50,22 C53,15 60,10 68,10 C80,10 90,20 90,35 C90,60 50,90 50,90 Z" 
+                              fill="currentColor" 
+                              stroke="none"/>
+                    </svg>
+                    <p>Corazón</p>
+                </div>
+
+                <!-- Ícono de estrella -->
+                <div class="icon-container">
+                    <svg class="icon icon-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <title>Estrella</title>
+                        <polygon points="50,10 61,38 90,38 67,55 78,83 50,66 22,83 33,55 10,38 39,38" 
+                                 fill="currentColor"/>
+                    </svg>
+                    <p>Estrella</p>
+                </div>
+
+                <!-- Ícono de campana -->
+                <div class="icon-container">
+                    <svg class="icon icon-bell" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <title>Notificación</title>
+                        <path d="M50,10 C35,10 25,20 25,35 L25,55 L15,70 L85,70 L75,55 L75,35 C75,20 65,10 50,10 Z" 
+                              fill="currentColor"/>
+                        <path d="M40,75 Q40,85 50,85 Q60,85 60,75" 
+                              fill="currentColor"/>
+                        <circle cx="70" cy="25" r="8" fill="#ff4444" class="notification-dot"/>
+                    </svg>
+                    <p>Notificación</p>
+                </div>
+
+                <!-- Ícono de configuración -->
+                <div class="icon-container">
+                    <svg class="icon icon-settings" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <title>Configuración</title>
+                        <g class="gear">
+                            <circle cx="50" cy="50" r="15" fill="currentColor"/>
+                            <rect x="45" y="10" width="10" height="25" rx="2" fill="currentColor"/>
+                            <rect x="45" y="65" width="10" height="25" rx="2" fill="currentColor"/>
+                            <rect x="10" y="45" width="25" height="10" rx="2" fill="currentColor"/>
+                            <rect x="65" y="45" width="25" height="10" rx="2" fill="currentColor"/>
+                            <rect x="22" y="22" width="10" height="18" rx="2" fill="currentColor" transform="rotate(45 27 31)"/>
+                            <rect x="68" y="22" width="10" height="18" rx="2" fill="currentColor" transform="rotate(-45 73 31)"/>
+                            <rect x="22" y="68" width="10" height="18" rx="2" fill="currentColor" transform="rotate(-45 27 77)"/>
+                            <rect x="68" y="68" width="10" height="18" rx="2" fill="currentColor" transform="rotate(45 73 77)"/>
+                        </g>
+                    </svg>
+                    <p>Configuración</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Logo Interactivo -->
+        <section class="section">
+            <h2>2. Logo SVG Interactivo</h2>
+            <p>Logo vectorial que cambia de color al interactuar</p>
+            
+            <div class="logo-showcase">
+                <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <title>Logo Web Developer</title>
+                    
+                    <!-- Círculo exterior -->
+                    <circle cx="100" cy="100" r="90" 
+                            fill="none" 
+                            stroke="url(#gradientStroke)" 
+                            stroke-width="4"
+                            class="logo-circle"/>
+                    
+                    <!-- Código símbolo <> -->
+                    <text x="100" y="120" 
+                          font-family="'Courier New', monospace" 
+                          font-size="80" 
+                          font-weight="bold"
+                          text-anchor="middle"
+                          fill="url(#gradientText)"
+                          class="logo-text">
+                        &lt;/&gt;
+                    </text>
+                    
+                    <!-- Puntos decorativos -->
+                    <circle cx="50" cy="50" r="5" fill="#667eea" class="dot dot1">
+                        <animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="150" cy="50" r="5" fill="#764ba2" class="dot dot2">
+                        <animate attributeName="r" values="5;8;5" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="150" cy="150" r="5" fill="#f093fb" class="dot dot3">
+                        <animate attributeName="r" values="5;8;5" dur="2s" begin="1s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="50" cy="150" r="5" fill="#4facfe" class="dot dot4">
+                        <animate attributeName="r" values="5;8;5" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- Gradientes -->
+                    <defs>
+                        <linearGradient id="gradientStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                        </linearGradient>
+                        
+                        <linearGradient id="gradientText" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1">
+                                <animate attributeName="stop-color" 
+                                         values="#4facfe;#667eea;#f093fb;#4facfe" 
+                                         dur="4s" 
+                                         repeatCount="indefinite"/>
+                            </stop>
+                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1">
+                                <animate attributeName="stop-color" 
+                                         values="#764ba2;#f093fb;#00f2fe;#764ba2" 
+                                         dur="4s" 
+                                         repeatCount="indefinite"/>
+                            </stop>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Sección 3: Gráfico de Barras Interactivo -->
+        <section class="section">
+            <h2>3. Gráfico de Barras SVG</h2>
+            <p>Visualización de datos con SVG y animaciones</p>
+            
+            <div class="chart-container">
+                <svg class="bar-chart-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                    <title>Ventas mensuales 2025</title>
+                    
+                    <!-- Ejes -->
+                    <line x1="50" y1="350" x2="550" y2="350" stroke="#ccc" stroke-width="2"/>
+                    <line x1="50" y1="50" x2="50" y2="350" stroke="#ccc" stroke-width="2"/>
+                    
+                    <!-- Labels Y -->
+                    <text x="40" y="60" text-anchor="end" font-size="12" fill="#666">100</text>
+                    <text x="40" y="135" text-anchor="end" font-size="12" fill="#666">75</text>
+                    <text x="40" y="210" text-anchor="end" font-size="12" fill="#666">50</text>
+                    <text x="40" y="285" text-anchor="end" font-size="12" fill="#666">25</text>
+                    <text x="40" y="355" text-anchor="end" font-size="12" fill="#666">0</text>
+                    
+                    <!-- Barras -->
+                    <g class="bars">
+                        <!-- Enero -->
+                        <rect class="bar" x="80" y="170" width="60" height="0" fill="url(#barGradient1)" rx="5">
+                            <animate attributeName="height" from="0" to="180" dur="1s" fill="freeze"/>
+                            <animate attributeName="y" from="350" to="170" dur="1s" fill="freeze"/>
+                        </rect>
+                        <text x="110" y="370" text-anchor="middle" font-size="14" fill="#333">Ene</text>
+                        
+                        <!-- Febrero -->
+                        <rect class="bar" x="170" y="95" width="60" height="0" fill="url(#barGradient2)" rx="5">
+                            <animate attributeName="height" from="0" to="255" dur="1s" begin="0.2s" fill="freeze"/>
+                            <animate attributeName="y" from="350" to="95" dur="1s" begin="0.2s" fill="freeze"/>
+                        </rect>
+                        <text x="200" y="370" text-anchor="middle" font-size="14" fill="#333">Feb</text>
+                        
+                        <!-- Marzo -->
+                        <rect class="bar" x="260" y="215" width="60" height="0" fill="url(#barGradient3)" rx="5">
+                            <animate attributeName="height" from="0" to="135" dur="1s" begin="0.4s" fill="freeze"/>
+                            <animate attributeName="y" from="350" to="215" dur="1s" begin="0.4s" fill="freeze"/>
+                        </rect>
+                        <text x="290" y="370" text-anchor="middle" font-size="14" fill="#333">Mar</text>
+                        
+                        <!-- Abril -->
+                        <rect class="bar" x="350" y="80" width="60" height="0" fill="url(#barGradient4)" rx="5">
+                            <animate attributeName="height" from="0" to="270" dur="1s" begin="0.6s" fill="freeze"/>
+                            <animate attributeName="y" from="350" to="80" dur="1s" begin="0.6s" fill="freeze"/>
+                        </rect>
+                        <text x="380" y="370" text-anchor="middle" font-size="14" fill="#333">Abr</text>
+                        
+                        <!-- Mayo -->
+                        <rect class="bar" x="440" y="110" width="60" height="0" fill="url(#barGradient5)" rx="5">
+                            <animate attributeName="height" from="0" to="240" dur="1s" begin="0.8s" fill="freeze"/>
+                            <animate attributeName="y" from="350" to="110" dur="1s" begin="0.8s" fill="freeze"/>
+                        </rect>
+                        <text x="470" y="370" text-anchor="middle" font-size="14" fill="#333">May</text>
+                    </g>
+                    
+                    <!-- Gradientes para barras -->
+                    <defs>
+                        <linearGradient id="barGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#45a049;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="barGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1976D2;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="barGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FF9800;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#F57C00;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="barGradient4" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#9C27B0;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#7B1FA2;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="barGradient5" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#E91E63;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#C2185B;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Sección 4: Ilustración Interactiva -->
+        <section class="section">
+            <h2>4. Ilustración SVG Interactiva</h2>
+            <p>Paisaje animado con elementos interactivos</p>
+            
+            <div class="illustration-container">
+                <svg class="landscape-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                    <title>Paisaje nocturno animado</title>
+                    
+                    <!-- Cielo con gradiente -->
+                    <rect width="800" height="400" fill="url(#skyGradient)"/>
+                    
+                    <!-- Estrellas parpadeantes -->
+                    <circle cx="100" cy="50" r="2" fill="white" class="star">
+                        <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="200" cy="80" r="2" fill="white" class="star">
+                        <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="350" cy="40" r="2" fill="white" class="star">
+                        <animate attributeName="opacity" values="1;0.3;1" dur="4s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="500" cy="70" r="2" fill="white" class="star">
+                        <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="650" cy="45" r="2" fill="white" class="star">
+                        <animate attributeName="opacity" values="1;0.3;1" dur="3.5s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- Luna -->
+                    <circle cx="700" cy="80" r="40" fill="#FFF9E6" class="moon">
+                        <animate attributeName="cy" values="80;75;80" dur="5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="715" cy="75" r="35" fill="url(#skyGradient)"/>
+                    
+                    <!-- Montañas -->
+                    <polygon points="0,400 0,250 200,150 400,250 800,400" fill="#2c3e50" opacity="0.7"/>
+                    <polygon points="150,400 150,200 400,100 650,200 800,400" fill="#34495e" opacity="0.8"/>
+                    
+                    <!-- Árboles -->
+                    <g class="tree" transform="translate(100, 280)">
+                        <rect x="-5" y="0" width="10" height="40" fill="#8B4513"/>
+                        <polygon points="0,-60 -30,0 30,0" fill="#2d5016"/>
+                        <polygon points="0,-50 -25,-10 25,-10" fill="#3a6b1e"/>
+                        <polygon points="0,-40 -20,-20 20,-20" fill="#4a7f26"/>
+                    </g>
+                    
+                    <g class="tree" transform="translate(600, 300)">
+                        <rect x="-5" y="0" width="10" height="40" fill="#8B4513"/>
+                        <polygon points="0,-60 -30,0 30,0" fill="#2d5016"/>
+                        <polygon points="0,-50 -25,-10 25,-10" fill="#3a6b1e"/>
+                        <polygon points="0,-40 -20,-20 20,-20" fill="#4a7f26"/>
+                    </g>
+                    
+                    <!-- Casa -->
+                    <g class="house">
+                        <rect x="350" y="270" width="100" height="80" fill="#D4A373"/>
+                        <polygon points="350,270 400,230 450,270" fill="#8B4513"/>
+                        <!-- Ventanas con luz -->
+                        <rect x="365" y="290" width="25" height="25" fill="#FFE66D" class="window">
+                            <animate attributeName="opacity" values="1;0.7;1" dur="4s" repeatCount="indefinite"/>
+                        </rect>
+                        <rect x="410" y="290" width="25" height="25" fill="#FFE66D" class="window">
+                            <animate attributeName="opacity" values="1;0.7;1" dur="3s" repeatCount="indefinite"/>
+                        </rect>
+                        <!-- Puerta -->
+                        <rect x="385" y="320" width="30" height="30" fill="#654321"/>
+                    </g>
+                    
+                    <!-- Suelo -->
+                    <rect y="350" width="800" height="50" fill="#27ae60" opacity="0.6"/>
+                    
+                    <!-- Gradientes -->
+                    <defs>
+                        <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0f2027;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#203a43;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2c5364;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Sección 5: Botones SVG Personalizados -->
+        <section class="section">
+            <h2>5. Botones con SVG Integrado</h2>
+            <p>Botones interactivos con gráficos vectoriales</p>
+            
+            <div class="buttons-grid">
+                <button class="svg-button download-btn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 16L7 11L8.4 9.6L11 12.2V4H13V12.2L15.6 9.6L17 11L12 16Z" fill="currentColor"/>
+                        <path d="M20 18H4V20H20V18Z" fill="currentColor"/>
+                    </svg>
+                    Descargar
+                </button>
+
+                <button class="svg-button share-btn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="18" cy="5" r="3" fill="currentColor"/>
+                        <circle cx="6" cy="12" r="3" fill="currentColor"/>
+                        <circle cx="18" cy="19" r="3" fill="currentColor"/>
+                        <line x1="8.5" y1="13.5" x2="15.5" y2="17.5" stroke="currentColor" stroke-width="2"/>
+                        <line x1="8.5" y1="10.5" x2="15.5" y2="6.5" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Compartir
+                </button>
+
+                <button class="svg-button play-btn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <polygon points="10,8 10,16 16,12" fill="currentColor"/>
+                    </svg>
+                    Reproducir
+                </button>
+
+                <button class="svg-button delete-btn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" fill="currentColor"/>
+                    </svg>
+                    Eliminar
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Implementación del estándar SVG 2 del W3C | Dilan Real - 2025</p>
+    </footer>
+</body>
+</html>

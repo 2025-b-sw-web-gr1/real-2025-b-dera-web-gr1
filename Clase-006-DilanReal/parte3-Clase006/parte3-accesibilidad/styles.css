@@ -1,0 +1,441 @@
+/* Reset y variables CSS */
+:root {
+    --primary-color: #2196F3;
+    --secondary-color: #4CAF50;
+    --text-color: #333;
+    --bg-color: #f5f5f5;
+    --white: #ffffff;
+    --border-radius: 8px;
+    --spacing-unit: 1rem;
+    --focus-color: #FF9800;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+/* Skip link accesible - solo visible al recibir foco */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 0 0 4px 0;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Clase para ocultar visualmente pero mantener accesible para lectores de pantalla */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-unit);
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: 2rem 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Navegación con alto contraste */
+nav {
+    background-color: var(--white);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 0;
+}
+
+.nav-menu li a {
+    display: block;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: 500;
+}
+
+.nav-menu li a:hover,
+.nav-menu li a:focus {
+    background-color: var(--primary-color);
+    color: var(--white);
+    outline: none;
+}
+
+/* Indicador de página actual con buen contraste */
+.nav-menu li a[aria-current="page"] {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border-bottom: 3px solid #388E3C;
+}
+
+/* Focus visible mejorado (WCAG 2.2) */
+*:focus {
+    outline: 3px solid var(--focus-color);
+    outline-offset: 2px;
+}
+
+/* Main content */
+main {
+    padding: 2rem 0;
+    min-height: 60vh;
+}
+
+/* Formulario de búsqueda */
+.search-form {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.search-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.search-form input[type="search"] {
+    width: calc(100% - 120px);
+    padding: 0.75rem;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    margin-right: 0.5rem;
+}
+
+.search-form input[type="search"]:focus {
+    border-color: var(--primary-color);
+}
+
+.search-form button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.search-form button:hover {
+    background-color: #1976D2;
+}
+
+/* Sección de noticias */
+section[aria-labelledby="latest-news"] h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+/* Cards de noticias con buen contraste */
+.news-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.news-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.news-content {
+    padding: 1.5rem;
+}
+
+.news-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+}
+
+.news-meta {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.news-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.read-more {
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.read-more:hover {
+    color: #1976D2;
+    text-decoration: underline;
+}
+
+/* Formulario de contacto accesible */
+.contact-form {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.form-group abbr {
+    color: #d32f2f;
+    text-decoration: none;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+}
+
+/* Mensajes de ayuda con buen contraste */
+.help-text {
+    display: block;
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+/* Indicador de error para campos inválidos */
+.form-group input:invalid:not(:focus):not(:placeholder-shown),
+.form-group textarea:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #d32f2f;
+}
+
+/* Botones primarios */
+.btn-primary {
+    padding: 0.75rem 2rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #1976D2;
+    transform: scale(1.05);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Modal accesible */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal[hidden] {
+    display: none;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content h2 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.modal-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: var(--white);
+    padding: 2rem 0;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.footer-link {
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Sección demo modal */
+.modal-demo {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.modal-demo h2 {
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-direction: column;
+    }
+    
+    .search-form input[type="search"] {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .search-form button {
+        width: 100%;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Alto contraste para accesibilidad */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #0D47A1;
+        --text-color: #000;
+    }
+    
+    .news-card {
+        border: 2px solid #000;
+    }
+}
+
+/* Modo oscuro para reducir fatiga visual */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #e0e0e0;
+        --bg-color: #1a1a1a;
+        --white: #2a2a2a;
+    }
+    
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+}
