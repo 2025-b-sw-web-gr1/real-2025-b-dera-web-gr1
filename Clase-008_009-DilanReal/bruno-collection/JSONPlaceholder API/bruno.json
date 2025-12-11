@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "JSONPlaceholder API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
