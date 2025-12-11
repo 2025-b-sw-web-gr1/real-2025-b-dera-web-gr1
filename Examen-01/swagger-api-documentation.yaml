@@ -1,0 +1,664 @@
+openapi: 3.0.0
+info:
+  title: JSONPlaceholder API
+  description: Documentación completa de endpoints REST usando Swagger para fines educativos - Examen 01
+  version: 1.0.0
+  contact:
+    name: Dilan Real
+    email: dilan.real@epn.edu.ec
+servers:
+  - url: https://jsonplaceholder.typicode.com
+    description: Servidor de prueba JSONPlaceholder
+
+paths:
+  /posts:
+    get:
+      summary: Obtener todos los posts
+      description: Retorna una lista completa de todos los posts disponibles
+      tags:
+        - Posts
+      responses:
+        '200':
+          description: Lista de posts obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+    post:
+      summary: Crear nuevo post
+      description: Crea un nuevo post con los datos proporcionados
+      tags:
+        - Posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostCreate'
+      responses:
+        '201':
+          description: Post creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+
+  /posts/{id}:
+    get:
+      summary: Obtener post por ID
+      description: Retorna un post específico según su ID
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del post a obtener
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Post encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post no encontrado
+    put:
+      summary: Actualizar post completo
+      description: Actualiza todos los campos de un post existente
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del post a actualizar
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '200':
+          description: Post actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+    patch:
+      summary: Actualizar título de post
+      description: Actualiza parcialmente un post (solo los campos enviados)
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del post a actualizar
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPatch'
+      responses:
+        '200':
+          description: Post actualizado parcialmente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+    delete:
+      summary: Eliminar post
+      description: Elimina un post específico por su ID
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del post a eliminar
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Post eliminado exitosamente
+
+  /comments:
+    get:
+      summary: Obtener todos los comentarios
+      description: Retorna una lista completa de comentarios o filtrados por post
+      tags:
+        - Comments
+      parameters:
+        - name: postId
+          in: query
+          required: false
+          description: ID del post para filtrar comentarios
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Lista de comentarios obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+    post:
+      summary: Crear nuevo comentario
+      description: Crea un nuevo comentario asociado a un post
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentCreate'
+      responses:
+        '201':
+          description: Comentario creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+
+  /albums:
+    get:
+      summary: Obtener todos los álbumes
+      description: Retorna una lista completa de todos los álbumes disponibles
+      tags:
+        - Albums
+      responses:
+        '200':
+          description: Lista de álbumes obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Album'
+    post:
+      summary: Crear nuevo álbum
+      description: Crea un nuevo álbum con los datos proporcionados
+      tags:
+        - Albums
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlbumCreate'
+      responses:
+        '201':
+          description: Álbum creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Album'
+
+  /albums/{id}:
+    get:
+      summary: Obtener álbum por ID
+      description: Retorna un álbum específico según su ID
+      tags:
+        - Albums
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del álbum a obtener
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Álbum encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Album'
+        '404':
+          description: Álbum no encontrado
+
+  /photos:
+    get:
+      summary: Obtener todas las fotos
+      description: Retorna una lista completa de fotos o filtradas por álbum
+      tags:
+        - Photos
+      parameters:
+        - name: albumId
+          in: query
+          required: false
+          description: ID del álbum para filtrar fotos
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Lista de fotos obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Photo'
+
+  /todos:
+    get:
+      summary: Obtener todas las tareas
+      description: Retorna una lista completa de todas las tareas (todos)
+      tags:
+        - Todos
+      responses:
+        '200':
+          description: Lista de tareas obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+    post:
+      summary: Crear nueva tarea
+      description: Crea una nueva tarea (todo) con los datos proporcionados
+      tags:
+        - Todos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoCreate'
+      responses:
+        '201':
+          description: Tarea creada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+
+  /todos/{id}:
+    get:
+      summary: Obtener tarea por ID
+      description: Retorna una tarea específica según su ID
+      tags:
+        - Todos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la tarea a obtener
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Tarea encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '404':
+          description: Tarea no encontrada
+
+  /users:
+    get:
+      summary: Obtener todos los usuarios
+      description: Retorna una lista completa de todos los usuarios
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Lista de usuarios obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /users/{id}:
+    get:
+      summary: Obtener usuario mediante ID
+      description: Retorna un usuario específico según su ID
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario a obtener
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuario no encontrado
+
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: ID del usuario que creó el post
+          example: 1
+        id:
+          type: integer
+          description: ID único del post
+          example: 1
+        title:
+          type: string
+          description: Título del post
+          example: "sunt aut facere repellat provident"
+        body:
+          type: string
+          description: Contenido del post
+          example: "quia et suscipit\nsuscipit recusandae"
+      required:
+        - userId
+        - id
+        - title
+        - body
+
+    PostCreate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "foo"
+        body:
+          type: string
+          example: "bar"
+        userId:
+          type: integer
+          example: 1
+      required:
+        - title
+        - body
+        - userId
+
+    PostPatch:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "updated title"
+
+    Comment:
+      type: object
+      properties:
+        postId:
+          type: integer
+          description: ID del post al que pertenece el comentario
+          example: 1
+        id:
+          type: integer
+          description: ID único del comentario
+          example: 1
+        name:
+          type: string
+          description: Nombre o título del comentario
+          example: "id labore ex et quam laborum"
+        email:
+          type: string
+          format: email
+          description: Email del autor del comentario
+          example: "Eliseo@gardner.biz"
+        body:
+          type: string
+          description: Contenido del comentario
+          example: "laudantium enim quasi est quidem magnam"
+      required:
+        - postId
+        - id
+        - name
+        - email
+        - body
+
+    CommentCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "test"
+        email:
+          type: string
+          format: email
+          example: "test@example.com"
+        body:
+          type: string
+          example: "Nice!"
+        postId:
+          type: integer
+          example: 1
+      required:
+        - name
+        - email
+        - body
+        - postId
+
+    Album:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: ID del usuario propietario del álbum
+          example: 1
+        id:
+          type: integer
+          description: ID único del álbum
+          example: 1
+        title:
+          type: string
+          description: Título del álbum
+          example: "quidem molestiae enim"
+      required:
+        - userId
+        - id
+        - title
+
+    AlbumCreate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Vacation"
+        userId:
+          type: integer
+          example: 1
+      required:
+        - title
+        - userId
+
+    Photo:
+      type: object
+      properties:
+        albumId:
+          type: integer
+          description: ID del álbum al que pertenece la foto
+          example: 1
+        id:
+          type: integer
+          description: ID único de la foto
+          example: 1
+        title:
+          type: string
+          description: Título de la foto
+          example: "accusamus beatae ad facilis cum"
+        url:
+          type: string
+          format: uri
+          description: URL de la foto
+          example: "https://via.placeholder.com/600/92c952"
+        thumbnailUrl:
+          type: string
+          format: uri
+          description: URL de la miniatura
+          example: "https://via.placeholder.com/150/92c952"
+      required:
+        - albumId
+        - id
+        - title
+        - url
+        - thumbnailUrl
+
+    Todo:
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: ID del usuario propietario de la tarea
+          example: 1
+        id:
+          type: integer
+          description: ID único de la tarea
+          example: 1
+        title:
+          type: string
+          description: Título de la tarea
+          example: "delectus aut autem"
+        completed:
+          type: boolean
+          description: Estado de completitud de la tarea
+          example: false
+      required:
+        - userId
+        - id
+        - title
+        - completed
+
+    TodoCreate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Buy milk"
+        completed:
+          type: boolean
+          example: false
+        userId:
+          type: integer
+          example: 1
+      required:
+        - title
+        - completed
+        - userId
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID único del usuario
+          example: 1
+        name:
+          type: string
+          description: Nombre completo del usuario
+          example: "Leanne Graham"
+        username:
+          type: string
+          description: Nombre de usuario
+          example: "Bret"
+        email:
+          type: string
+          format: email
+          description: Email del usuario
+          example: "Sincere@april.biz"
+        address:
+          $ref: '#/components/schemas/Address'
+        phone:
+          type: string
+          description: Teléfono del usuario
+          example: "1-770-736-8031 x56442"
+        website:
+          type: string
+          description: Sitio web del usuario
+          example: "hildegard.org"
+        company:
+          $ref: '#/components/schemas/Company'
+      required:
+        - id
+        - name
+        - username
+        - email
+
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          example: "Kulas Light"
+        suite:
+          type: string
+          example: "Apt. 556"
+        city:
+          type: string
+          example: "Gwenborough"
+        zipcode:
+          type: string
+          example: "92998-3874"
+        geo:
+          $ref: '#/components/schemas/Geo'
+
+    Geo:
+      type: object
+      properties:
+        lat:
+          type: string
+          example: "-37.3159"
+        lng:
+          type: string
+          example: "81.1496"
+
+    Company:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Romaguera-Crona"
+        catchPhrase:
+          type: string
+          example: "Multi-layered client-server neural-net"
+        bs:
+          type: string
+          example: "harness real-time e-markets"
+
+tags:
+  - name: Posts
+    description: Operaciones relacionadas con posts
+  - name: Comments
+    description: Operaciones relacionadas con comentarios
+  - name: Albums
+    description: Operaciones relacionadas con álbumes
+  - name: Photos
+    description: Operaciones relacionadas con fotos
+  - name: Todos
+    description: Operaciones relacionadas con tareas (todos)
+  - name: Users
+    description: Operaciones relacionadas con usuarios
