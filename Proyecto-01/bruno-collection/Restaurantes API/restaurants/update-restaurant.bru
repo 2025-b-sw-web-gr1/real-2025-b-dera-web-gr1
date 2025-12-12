@@ -1,0 +1,24 @@
+meta {
+  name: Actualizar restaurante completo
+  type: http
+  seq: 4
+}
+
+put {
+  url: https://api.ejemplo.com/restaurants/1
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 1,
+    "nombre": "La Casa del Marisco Premium",
+    "direccion": "Av. Amazonas N24-03",
+    "ciudad": "Quito",
+    "tipoCocina": "Mariscos",
+    "telefono": "02-234-5678"
+  }
+}

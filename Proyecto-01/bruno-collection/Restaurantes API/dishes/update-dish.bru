@@ -1,0 +1,25 @@
+meta {
+  name: Actualizar plato completo
+  type: http
+  seq: 5
+}
+
+put {
+  url: https://api.ejemplo.com/dishes/1
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 1,
+    "nombre": "Ceviche de Camarón Premium",
+    "descripcion": "Camarones jumbo frescos marinados en limón con cebolla morada y cilantro",
+    "precio": 15.00,
+    "categoria": "Entrada",
+    "disponible": true,
+    "restauranteId": 1
+  }
+}

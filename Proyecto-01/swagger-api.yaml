@@ -1,0 +1,538 @@
+openapi: 3.0.0
+info:
+  title: API de Restaurantes y Platos
+  description: |
+    Sistema de gestión para restaurantes que permite administrar información de restaurantes 
+    y sus respectivos platos del menú. Implementa una relación 1 a muchos donde un restaurante 
+    puede tener múltiples platos, pero cada plato pertenece a un único restaurante.
+  version: 1.0.0
+  contact:
+    name: Dilan Real
+    email: dilan.real@epn.edu.ec
+servers:
+  - url: https://api.ejemplo.com
+    description: Servidor de producción
+  - url: http://localhost:3000
+    description: Servidor de desarrollo local
+
+paths:
+  /restaurants:
+    get:
+      summary: Obtener todos los restaurantes
+      description: Retorna una lista completa de todos los restaurantes registrados en el sistema
+      tags:
+        - Restaurants
+      responses:
+        '200':
+          description: Lista de restaurantes obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Restaurant'
+              example:
+                - id: 1
+                  nombre: "La Casa del Marisco"
+                  direccion: "Av. Amazonas N24-03"
+                  ciudad: "Quito"
+                  tipoCocina: "Mariscos"
+                  telefono: "02-234-5678"
+                - id: 2
+                  nombre: "Pizzería Napolitana"
+                  direccion: "Calle La Ronda 123"
+                  ciudad: "Quito"
+                  tipoCocina: "Italiana"
+                  telefono: "02-345-6789"
+    post:
+      summary: Crear nuevo restaurante
+      description: Registra un nuevo restaurante en el sistema con su información básica
+      tags:
+        - Restaurants
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantInput'
+      responses:
+        '201':
+          description: Restaurante creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+        '400':
+          description: Datos inválidos o incompletos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "El nombre del restaurante es obligatorio"
+
+  /restaurants/{id}:
+    get:
+      summary: Obtener restaurante por ID
+      description: Retorna la información detallada de un restaurante específico
+      tags:
+        - Restaurants
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del restaurante
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Restaurante encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+        '404':
+          description: Restaurante no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Restaurante con ID 1 no encontrado"
+    put:
+      summary: Actualizar restaurante completo
+      description: Actualiza todos los campos de un restaurante existente
+      tags:
+        - Restaurants
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del restaurante a actualizar
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurant'
+      responses:
+        '200':
+          description: Restaurante actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+        '404':
+          description: Restaurante no encontrado
+        '400':
+          description: Datos inválidos
+    delete:
+      summary: Eliminar restaurante
+      description: Elimina un restaurante del sistema. ADVERTENCIA - También eliminará todos los platos asociados
+      tags:
+        - Restaurants
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del restaurante a eliminar
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Restaurante eliminado exitosamente
+        '404':
+          description: Restaurante no encontrado
+        '409':
+          description: No se puede eliminar el restaurante porque tiene platos asociados
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se puede eliminar el restaurante porque tiene 15 platos asociados"
+
+  /dishes:
+    get:
+      summary: Obtener todos los platos
+      description: Retorna una lista completa de todos los platos disponibles en todos los restaurantes
+      tags:
+        - Dishes
+      responses:
+        '200':
+          description: Lista de platos obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dish'
+              example:
+                - id: 1
+                  nombre: "Ceviche de Camarón"
+                  descripcion: "Camarones frescos marinados en limón"
+                  precio: 12.50
+                  categoria: "Entrada"
+                  disponible: true
+                  restauranteId: 1
+                - id: 2
+                  nombre: "Arroz Marinero"
+                  descripcion: "Arroz con mariscos variados"
+                  precio: 18.00
+                  categoria: "Plato Fuerte"
+                  disponible: true
+                  restauranteId: 1
+    post:
+      summary: Crear nuevo plato
+      description: Registra un nuevo plato en el menú de un restaurante
+      tags:
+        - Dishes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DishInput'
+      responses:
+        '201':
+          description: Plato creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+        '400':
+          description: Datos inválidos o restaurante no existe
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "El restaurante con ID 99 no existe"
+
+  /dishes/{id}:
+    get:
+      summary: Obtener plato por ID
+      description: Retorna la información detallada de un plato específico
+      tags:
+        - Dishes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del plato
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Plato encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+        '404':
+          description: Plato no encontrado
+    put:
+      summary: Actualizar plato completo
+      description: Actualiza todos los campos de un plato existente
+      tags:
+        - Dishes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del plato a actualizar
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dish'
+      responses:
+        '200':
+          description: Plato actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+        '404':
+          description: Plato no encontrado
+        '400':
+          description: Datos inválidos
+    delete:
+      summary: Eliminar plato
+      description: Elimina un plato del menú del restaurante
+      tags:
+        - Dishes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del plato a eliminar
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Plato eliminado exitosamente
+        '404':
+          description: Plato no encontrado
+
+  /restaurants/{id}/dishes:
+    get:
+      summary: Obtener platos de un restaurante
+      description: |
+        Retorna todos los platos del menú de un restaurante específico.
+        Este es el endpoint principal que demuestra la relación 1 a muchos
+        entre restaurantes y platos.
+      tags:
+        - Dishes
+        - Relationships
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del restaurante del cual obtener los platos
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Lista de platos del restaurante obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dish'
+              example:
+                - id: 1
+                  nombre: "Ceviche de Camarón"
+                  descripcion: "Camarones frescos marinados en limón con cebolla morada y cilantro"
+                  precio: 12.50
+                  categoria: "Entrada"
+                  disponible: true
+                  restauranteId: 1
+                - id: 2
+                  nombre: "Arroz Marinero"
+                  descripcion: "Arroz con mariscos variados del día"
+                  precio: 18.00
+                  categoria: "Plato Fuerte"
+                  disponible: true
+                  restauranteId: 1
+                - id: 3
+                  nombre: "Corvina al Horno"
+                  descripcion: "Corvina fresca horneada con vegetales"
+                  precio: 22.00
+                  categoria: "Plato Fuerte"
+                  disponible: false
+                  restauranteId: 1
+        '404':
+          description: Restaurante no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Restaurante con ID 99 no encontrado"
+
+components:
+  schemas:
+    Restaurant:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador único del restaurante
+          example: 1
+        nombre:
+          type: string
+          description: Nombre comercial del restaurante
+          example: "La Casa del Marisco"
+        direccion:
+          type: string
+          description: Dirección física del restaurante
+          example: "Av. Amazonas N24-03"
+        ciudad:
+          type: string
+          description: Ciudad donde se ubica el restaurante
+          example: "Quito"
+        tipoCocina:
+          type: string
+          description: Tipo de cocina o especialidad del restaurante
+          example: "Mariscos"
+          enum:
+            - Mariscos
+            - Italiana
+            - Mexicana
+            - China
+            - Japonesa
+            - Ecuatoriana
+            - Internacional
+            - Vegetariana
+            - Vegana
+            - Parrilla
+        telefono:
+          type: string
+          description: Número de teléfono de contacto
+          pattern: '^\d{2}-\d{3}-\d{4}$'
+          example: "02-234-5678"
+      required:
+        - id
+        - nombre
+        - direccion
+        - ciudad
+        - tipoCocina
+        - telefono
+
+    RestaurantInput:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Nombre comercial del restaurante
+          minLength: 3
+          maxLength: 100
+          example: "La Casa del Marisco"
+        direccion:
+          type: string
+          description: Dirección física del restaurante
+          minLength: 10
+          maxLength: 200
+          example: "Av. Amazonas N24-03"
+        ciudad:
+          type: string
+          description: Ciudad donde se ubica el restaurante
+          example: "Quito"
+        tipoCocina:
+          type: string
+          description: Tipo de cocina o especialidad del restaurante
+          example: "Mariscos"
+        telefono:
+          type: string
+          description: Número de teléfono de contacto
+          pattern: '^\d{2}-\d{3}-\d{4}$'
+          example: "02-234-5678"
+      required:
+        - nombre
+        - direccion
+        - ciudad
+        - tipoCocina
+        - telefono
+
+    Dish:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador único del plato
+          example: 1
+        nombre:
+          type: string
+          description: Nombre del plato
+          example: "Ceviche de Camarón"
+        descripcion:
+          type: string
+          description: Descripción detallada del plato e ingredientes
+          example: "Camarones frescos marinados en limón con cebolla morada y cilantro"
+        precio:
+          type: number
+          format: float
+          description: Precio del plato en dólares
+          minimum: 0
+          example: 12.50
+        categoria:
+          type: string
+          description: Categoría o tipo de plato
+          example: "Entrada"
+          enum:
+            - Entrada
+            - Plato Fuerte
+            - Postre
+            - Bebida
+            - Ensalada
+            - Sopa
+        disponible:
+          type: boolean
+          description: Indica si el plato está disponible actualmente
+          example: true
+        restauranteId:
+          type: integer
+          description: ID del restaurante al que pertenece este plato (Foreign Key)
+          example: 1
+      required:
+        - id
+        - nombre
+        - descripcion
+        - precio
+        - categoria
+        - disponible
+        - restauranteId
+
+    DishInput:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Nombre del plato
+          minLength: 3
+          maxLength: 100
+          example: "Ceviche de Camarón"
+        descripcion:
+          type: string
+          description: Descripción detallada del plato e ingredientes
+          minLength: 10
+          maxLength: 500
+          example: "Camarones frescos marinados en limón con cebolla morada y cilantro"
+        precio:
+          type: number
+          format: float
+          description: Precio del plato en dólares
+          minimum: 0
+          maximum: 999.99
+          example: 12.50
+        categoria:
+          type: string
+          description: Categoría o tipo de plato
+          example: "Entrada"
+        disponible:
+          type: boolean
+          description: Indica si el plato está disponible actualmente
+          default: true
+          example: true
+        restauranteId:
+          type: integer
+          description: ID del restaurante al que pertenece este plato
+          example: 1
+      required:
+        - nombre
+        - descripcion
+        - precio
+        - categoria
+        - restauranteId
+
+tags:
+  - name: Restaurants
+    description: Operaciones CRUD para gestionar restaurantes
+  - name: Dishes
+    description: Operaciones CRUD para gestionar platos del menú
+  - name: Relationships
+    description: Endpoints que demuestran la relación 1 a muchos entre restaurantes y platos
