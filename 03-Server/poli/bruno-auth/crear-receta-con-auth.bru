@@ -1,0 +1,23 @@
+meta {
+  name: Crear Receta (con auth)
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/recetas
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nombre": "Pizza Margherita",
+    "descripcion": "Pizza clásica italiana con tomate, mozzarella y albahaca"
+  }
+}
+
+docs {
+  Primero haz login en login.bru para obtener la sesión.
+  Luego ejecuta este endpoint y debería funcionar.
+}

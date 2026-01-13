@@ -1,0 +1,22 @@
+meta {
+  name: Crear Receta (sin auth)
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/recetas
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nombre": "Pizza Margherita",
+    "descripcion": "Pizza clásica italiana"
+  }
+}
+
+docs {
+  Este endpoint debería fallar con 401 si no estás autenticado
+}
