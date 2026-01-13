@@ -1,20 +1,20 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Patch,
-  Delete,
-  Param,
   Body,
-  Query,
+  Controller,
+  Delete,
+  Get,
   HttpException,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { RecetasService } from './receta.service';
-import { Receta } from './receta.entity';
 import { AuthGuard } from '../auth/auth.guard';
 import { User } from '../auth/user.decorator';
+import { Receta } from './receta.entity';
+import { RecetasService } from './receta.service';
 
 @Controller('recetas')
 export class RecetasController {

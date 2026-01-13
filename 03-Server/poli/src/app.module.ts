@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Receta } from './receta/receta.entity';
-import { Ingrediente } from './ingredientes/ingrediente.entity';
-import { RecetasModule } from './receta/receta.module';
-import { IngredientesModule } from './ingredientes/ingrediente.module';
 import { AuthModule } from './auth/auth.module';
+import { Ingrediente } from './ingredientes/ingrediente.entity';
+import { IngredientesModule } from './ingredientes/ingrediente.module';
+import { Receta } from './receta/receta.entity';
+import { RecetasModule } from './receta/receta.module';
 
 @Module({
   imports: [

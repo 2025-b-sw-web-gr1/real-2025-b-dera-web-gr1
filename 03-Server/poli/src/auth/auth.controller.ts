@@ -1,11 +1,11 @@
 import {
-  Controller,
-  Post,
-  Body,
-  Session,
-  HttpException,
-  HttpStatus,
-  Get,
+    Body,
+    Controller,
+    Get,
+    HttpException,
+    HttpStatus,
+    Post,
+    Session,
 } from '@nestjs/common';
 
 @Controller('auth')

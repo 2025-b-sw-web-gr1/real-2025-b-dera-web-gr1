@@ -1,20 +1,20 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Patch,
-  Delete,
-  Param,
   Body,
-  Query,
+  Controller,
+  Delete,
+  Get,
   HttpException,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { IngredientesService } from './ingrediente.service';
-import { Ingrediente } from './ingrediente.entity';
 import { AuthGuard } from '../auth/auth.guard';
 import { User } from '../auth/user.decorator';
+import { Ingrediente } from './ingrediente.entity';
+import { IngredientesService } from './ingrediente.service';
 
 @Controller('ingredientes')
 export class IngredientesController {
