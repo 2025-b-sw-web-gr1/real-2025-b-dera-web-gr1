@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+**/dist/
+
+# Database files
+*.sqlite
+*.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+
+# OS files
+.DS_Store
+Thumbs.db

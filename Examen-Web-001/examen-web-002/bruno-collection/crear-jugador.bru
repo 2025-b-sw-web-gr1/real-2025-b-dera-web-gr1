@@ -1,0 +1,21 @@
+meta {
+  name: Crear Jugador
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:3000/players
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Lionel Messi",
+    "position": "Delantero",
+    "team": {
+      "id": 1
+    }
+  }
+}
