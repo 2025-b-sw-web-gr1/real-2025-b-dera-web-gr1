@@ -1,0 +1,29 @@
+meta {
+  name: Greeting en Inglés (con parámetros)
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:3000/greeting?name=John&lang=en
+  body: none
+  auth: none
+}
+
+query {
+  name: John
+  lang: en
+}
+
+docs {
+  # Greeting con parámetros en Inglés
+  
+  Prueba la interpolación de variables en las traducciones.
+  
+  **Respuesta esperada:** 
+  ```
+  Hello John, how are you?
+  ```
+  
+  Puedes cambiar el parámetro `name` por cualquier otro nombre.
+}

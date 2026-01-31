@@ -1,0 +1,22 @@
+meta {
+  name: Sin idioma (Fallback a español)
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://localhost:3000/welcome
+  body: none
+  auth: none
+}
+
+docs {
+  # Sin idioma especificado
+  
+  Si no se especifica idioma, usa el fallback configurado (español).
+  
+  **Respuesta esperada:** 
+  ```
+  Bienvenido a nuestra aplicación
+  ```
+}

@@ -1,0 +1,6 @@
+{
+  "HELLO": "¡Hola Mundo!",
+  "WELCOME": "Bienvenido a nuestra aplicación",
+  "GOODBYE": "¡Hasta luego!",
+  "GREETING": "Hola {name}, ¿cómo estás?"
+}

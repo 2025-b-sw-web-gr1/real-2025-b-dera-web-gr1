@@ -1,0 +1,26 @@
+meta {
+  name: Hello en Español (Query)
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000?lang=es
+  body: none
+  auth: none
+}
+
+query {
+  lang: es
+}
+
+docs {
+  # Hello en Español
+  
+  Prueba el endpoint raíz con idioma español usando query parameter.
+  
+  **Respuesta esperada:** 
+  ```
+  ¡Hola Mundo!
+  ```
+}
